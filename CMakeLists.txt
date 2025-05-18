@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD 14) # 14^ is required for gtest
 set(CMAKE_CXX_STANDARD_REQUIRED ON) 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON) # for clangd
 
+set(CMAKE_CXX_FLAGS "-O3")
+
 set(OPENGL ON CACHE BOOL "Compile with OpenGL" FORCE)
 # set(GTEST OFF CACHE BOOL "Compile test code" FORCE)
 

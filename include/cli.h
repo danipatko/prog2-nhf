@@ -16,38 +16,51 @@ namespace cli {
 static const char *HELPMSG = R"(
 Usage:
   --start <location>
-    Specifies the starting point. Two formats are accepted:
-    - A coordinate like `47.4733817,19.0572901`
-    - DMS format, e.g. `47°27'18.9"N 19°07'33.1"E`
-    In both cases, the program finds the closest point on the map and starts the route from there.
+        Specifies the starting point. Two formats are accepted:
+        - A coordinate like `47.4733817,19.0572901`
+        - DMS format, e.g. `47°27'18.9"N 19°07'33.1"E`
+        In both cases, the program finds the closest point on the map and starts the route from there.
 
   --destination <location>
-    Specifies the destination. Works the same way as the starting point.
+        Specifies the destination. Works the same way as the starting point.
 
   --map <path/to/map.geojsonl>
-    Loads the map. Expected format: newline-delimited GeoJSON (GeoJSONL).
-    Tip: Many major cities are available for download here: https://app.interline.io/osm_extracts/interactive_view
+        Loads the map. Expected format: newline-delimited GeoJSON (GeoJSONL).
+        Tip: Many major cities are available for download here: https://app.interline.io/osm_extracts/interactive_view
 
   --algo <astar|dijkstra|bfs|dfs>
-    Specifies the graph traversal algorithm to use. Supported algorithms:
-    - A* Search
-    - Dijkstra's Algorithm
-    - Breadth-First Search (BFS)
-    - Depth-First Search (DFS)
+        Specifies the graph traversal algorithm to use. Supported algorithms:
+        - A* Search
+        - Dijkstra's Algorithm
+        - Breadth-First Search (BFS)
+        - Depth-First Search (DFS)
 
   --struct <list|matrix>
-    Chooses the data structure for representing the graph: adjacency list or adjacency matrix.
+        Chooses the data structure for representing the graph: adjacency list or adjacency matrix.
 
-  --speed <ticks/sec>
-    Sets the animation speed in steps per second. If set to 0, the final route is displayed immediately with no animation.
+  --trace-rate <ticks/sec>
+        Sets the animation speed for discovered edges.
+
+  --route-rate <ticks/sec>
+        Sets the animation speed for the planned route.
 
   --route <shortest|fastest>
-    Defines how edge weights are computed:
-    - shortest: Finds the shortest distance.
-    - fastest: Fastest in time - considers speed limits and road data (if available in the map).
+        Defines how edge weights are computed:
+        - shortest: Finds the shortest distance.
+        - fastest: Fastest in time - considers speed limits and road data (if available in the map).
+
+  --config <a,b,c,d,e,f>
+        Defines custom weight multipliers for the algorithm. All values are floats, separated by either ',' or '|'.
+        - a: inverse road speed multiplier. can be used to penalyze slow roads
+        - b: time multiplier (in seconds)
+        - c: multiplier for distance of the two points (in metres)
+        - d: multiplier for turn angles (angle is between 0 and PI3 radians (120deg), sharper turns = more penalty)    
+        - e: penalty for roads that are not for cars
+        - f: multiplier for road ratings. base roads have a penalty of 64, interstates 1 (scaled exponentially)
+        - g: penalty for toll roads.
 
   --help
-    Displays this help message.
+        Displays this help message.
 )";
 
 struct Options {

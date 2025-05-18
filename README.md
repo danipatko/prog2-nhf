@@ -57,7 +57,7 @@ Az algoritmus által bejárt élek animációjának sebessége lépés/másodper
 A gráf élsúlyainak kiszámítására használt módszer. A `shortest` opciót választva a program egyszerűen a legrövidebb utat keresi meg. A `fastest` esetében pedig (amennyiben a térképadatok ezt megengedik), a sebességhatárt, és egyéb útadatokat is figyelembe vesz.
 A custom lehetőséget ad a felhasználónak arra, hogy önmaga próbálja hangolni az útvonaltervezéshez használt súlyokat. Ezeknek beállíŧása a `--config` kapcsolóval lehetséges.
 
-##### `--config <a,b,c,d,e,f>`
+##### `--config <a,b,c,d,e,f,g>`
 
 A gráf élsúlyainak kiszámítására használt szorzók. A lényeg az, hogy minél magasabb a súlyösszeg, annál valószínűbb, hogy elkerüli a keresőalgoritmus. Magyarázat:
 
@@ -69,9 +69,11 @@ A gráf élsúlyainak kiszámítására használt szorzók. A lényeg az, hogy m
 
 -   `d`: a kanyarok ára/büntetése - ez az érték a kanyar élességével arányosan van hozzáadva a súlyhoz. Ezt érdemes a százezres nagyságrendekbe emelni, mivel az algoritmus hajlamos felesleges kanyarokat tenni látszólag értelmetlenül.
 
--   `e`: az út rangjával fordítottan arányos súly (legmagasabb rang: országút, legalacsonyabb: sima utak - a rank exponenciálisan nő).
+-   `e`: az autóval nem bejárható utak súlyértéke.
 
--   `f`: a fizetős utakra vonatkozó büntetőérték.
+-   `f`: az út rangjával fordítottan arányos súly (legmagasabb rang: országút, legalacsonyabb: sima utak - a rank exponenciálisan nő).
+
+-   `g`: a fizetős utakra vonatkozó büntetőérték.
 
 ##### `--help`
 
