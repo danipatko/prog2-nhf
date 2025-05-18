@@ -285,6 +285,9 @@ template <typename T> class Drawable {
 
     /// CPU -> GPU
     void __update__() {
+        if (vertices.size() == 0)
+            return;
+
         glBindBuffer(GL_ARRAY_BUFFER, VBO);
         glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(T), &vertices[0], GL_DYNAMIC_DRAW);
     }

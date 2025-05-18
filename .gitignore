@@ -45,6 +45,5 @@ docs/*
 .skeleton
 
 **/*.bin
-**/*.txt
 *.zip
 final/*

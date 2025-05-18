@@ -9,6 +9,8 @@ A projekt cmake-et használ. A cmake FetchContent funkcióját használva le tud
 ```sh
 # cmake konfiguráció:
 cd build && cmake ..
+# hiba esetén lehetséges, hogy a GLAD cmake verziója miatt az alábbi szükséges:
+cmake .. -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 # build
 cmake --build ./build
 # futtatás:

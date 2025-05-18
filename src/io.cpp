@@ -6,84 +6,86 @@
 #include <iostream>
 
 /**
- * @note The longitude, latitude order is the standard convention for representing geographic coordinates in GeoJSON
+ * @note The longitude, latitude order is the standard convention for
+ * representing geographic coordinates in GeoJSON
  */
 std::istream &operator>>(std::istream &is, Point &point) {
-    char c;
-    double d;
+  char c;
+  double d;
 
-    is >> c;
-    assert(c == '[');
+  is >> c;
+  assert(c == '[');
 
-    is >> d;
-    point.x = d;
+  is >> d;
+  point.x = d;
 
-    is >> c;
-    assert(c == ',');
+  is >> c;
+  assert(c == ',');
 
-    is >> d;
-    point.y = d;
+  is >> d;
+  point.y = d;
 
-    is >> c;
-    assert(c == ']');
+  is >> c;
+  assert(c == ']');
 
-    assert(point.lat > -90 && point.lat < 90);
-    assert(point.lon > -180 && point.lon < 180);
+  assert(point.y > -90 && point.x < 90);
+  assert(point.y > -180 && point.x < 180);
 
-    return is;
+  return is;
 }
 
 std::ostream &operator<<(std::ostream &os, const Point &point) {
-    os << '[' << std::setprecision(10) << point.x << ',' << std::setprecision(10) << point.y << ']';
-    return os;
+  os << '[' << std::setprecision(10) << point.x << ',' << std::setprecision(10)
+     << point.y << ']';
+  return os;
 }
 
 std::istream &operator>>(std::istream &is, std::vector<Point> &points) {
-    char c;
-    Point p;
+  char c;
+  Point p;
+
+  is >> c;
+  assert(c == '[');
+
+  while (true) {
+    is >> p;
+    points.push_back(p);
 
     is >> c;
-    assert(c == '[');
+    assert(c == ',' || c == ']');
 
-    while (true) {
-        is >> p;
-        points.push_back(p);
+    if (c == ']')
+      break;
+  }
 
-        is >> c;
-        assert(c == ',' || c == ']');
-
-        if (c == ']')
-            break;
-    }
-
-    return is;
+  return is;
 }
 
 std::istream &operator>>(std::istream &is, std::vector<Point *> &points) {
-    static char c;
+  static char c;
+
+  is >> c;
+  assert(c == '[');
+
+  while (true) {
+    Point *p = new Point();
+    is >> *p;
+
+    points.push_back(p);
 
     is >> c;
-    assert(c == '[');
+    assert(c == ',' || c == ']');
 
-    while (true) {
-        Point *p = new Point();
-        is >> *p;
+    if (c == ']')
+      break;
+  }
 
-        points.push_back(p);
-
-        is >> c;
-        assert(c == ',' || c == ']');
-
-        if (c == ']')
-            break;
-    }
-
-    return is;
+  return is;
 }
 
 std::ostream &operator<<(std::ostream &os, Point &point) {
-    os << '[' << point.x << ',' << point.y << ']';
-    return os;
+  os << '[' << point.x << ',' << point.y << ']';
+  return os;
 }
 
 std::vector<std::pair<std::string, HighwayType>> const table = {
@@ -122,89 +124,91 @@ std::vector<std::pair<std::string, HighwayType>> const table = {
 };
 
 HighwayType parse_highway(const std::string &str) {
-    for (auto it : table) {
-        if (it.first == str)
-            return it.second;
-    }
+  for (auto it : table) {
+    if (it.first == str)
+      return it.second;
+  }
 
-    throw "invalid highway type!";
+  throw "invalid highway type!";
 }
 
 std::istream &operator>>(std::istream &is, HighwayType &highway_type) {
-    static std::string str;
-    is >> str;
+  static std::string str;
+  is >> str;
 
-    highway_type = parse_highway(str);
+  highway_type = parse_highway(str);
 
-    return is;
+  return is;
 }
 
 std::ostream &operator<<(std::ostream &os, const HighwayType &highway_type) {
-    for (auto it : table) {
-        if (it.second == highway_type) {
-            os << it.first;
-            break;
-        }
+  for (auto it : table) {
+    if (it.second == highway_type) {
+      os << it.first;
+      break;
     }
+  }
 
-    return os;
+  return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const Road &road) {
-    os << "(w" << std::setw(7) << road.id << "/" << road.highway << ") " << road.getname() << " | ";
-    if (road.maxspeed > 0)
-        os << "max speed: " << road.maxspeed << " | ";
-    if (road.lanes > 1)
-        os << road.lanes << " lanes | ";
-    if (road.roundabout)
-        os << "roundabout | ";
-    if (road.bridge)
-        os << "bridge | ";
-    if (road.oneway)
-        os << "oneway | ";
-    if (road.roundabout)
-        os << "roundabout | ";
+  os << "(w" << std::setw(7) << road.id << "/" << road.highway << ") "
+     << road.getname() << " | ";
+  if (road.maxspeed > 0)
+    os << "max speed: " << road.maxspeed << " | ";
+  if (road.lanes > 1)
+    os << road.lanes << " lanes | ";
+  if (road.roundabout)
+    os << "roundabout | ";
+  if (road.bridge)
+    os << "bridge | ";
+  if (road.oneway)
+    os << "oneway | ";
+  if (road.roundabout)
+    os << "roundabout | ";
 
-    return os;
+  return os;
 }
 
 std::ostream &operator<<(std::ostream &os, const BBox &bbox) {
-    os << "bbox " << bbox.top_left() << " " << bbox.bottom_right();
-    return os;
+  os << "bbox " << bbox.top_left() << " " << bbox.bottom_right();
+  return os;
 }
 
 std::istream &operator>>(std::istream &is, Coefficients &coeffs) {
-    float f;
-    char c;
+  float f;
+  char c;
 
-    is >> coeffs.slow;
-    is >> c;
-    assert(c == ',' || c == '|');
-    is >> coeffs.time;
-    is >> c;
-    assert(c == ',' || c == '|');
-    is >> coeffs.distance;
-    is >> c;
-    assert(c == ',' || c == '|');
-    is >> coeffs.turn_penalty;
-    is >> c;
-    assert(c == ',' || c == '|');
-    is >> coeffs.nonroad_penalty;
-    is >> c;
-    assert(c == ',' || c == '|');
-    is >> coeffs.rating;
-    is >> c;
-    assert(c == ',' || c == '|');
-    is >> coeffs.tolls;
+  is >> coeffs.slow;
+  is >> c;
+  assert(c == ',' || c == '|');
+  is >> coeffs.time;
+  is >> c;
+  assert(c == ',' || c == '|');
+  is >> coeffs.distance;
+  is >> c;
+  assert(c == ',' || c == '|');
+  is >> coeffs.turn_penalty;
+  is >> c;
+  assert(c == ',' || c == '|');
+  is >> coeffs.nonroad_penalty;
+  is >> c;
+  assert(c == ',' || c == '|');
+  is >> coeffs.rating;
+  is >> c;
+  assert(c == ',' || c == '|');
+  is >> coeffs.tolls;
 
-    return is;
+  return is;
 }
 
 std::string fmt(const int secs) {
-    const int hours = secs / 3600;
-    const int minutes = (secs % 3600) / 60;
+  const int hours = secs / 3600;
+  const int minutes = (secs % 3600) / 60;
 
-    std::ostringstream ss;
-    ss << std::setw(2) << std::setfill('0') << hours << ":" << std::setw(2) << std::setfill('0') << minutes;
-    return ss.str();
+  std::ostringstream ss;
+  ss << std::setw(2) << std::setfill('0') << hours << ":" << std::setw(2)
+     << std::setfill('0') << minutes;
+  return ss.str();
 }

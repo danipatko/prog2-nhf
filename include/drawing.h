@@ -39,8 +39,6 @@ class PolyLine : public Drawable<PolyVertex> {
         // rating
         glVertexAttribPointer(2, 1, GL_FLOAT, GL_FALSE, sizeof(PolyVertex), (void *)offsetof(PolyVertex, rating));
         glEnableVertexAttribArray(2);
-
-        __update__();
     };
 
     void add(const glm::vec2 &from, const glm::vec2 &to, const glm::vec3 &color = WHITE, const float rating = 1.f) {
@@ -74,10 +72,10 @@ class DPoint : public Drawable<glm::vec2> {
         glEnableVertexAttribArray(0);
 
         // // color
-        // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(CVertex), (void *)offsetof(PolyVertex, color));
-        // glEnableVertexAttribArray(1);
+        // glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(CVertex), (void
+        // *)offsetof(PolyVertex, color)); glEnableVertexAttribArray(1);
 
-        __update__();
+        // __update__();
     };
 
     void add(glm::vec2 point) {
