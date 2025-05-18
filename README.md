@@ -2,6 +2,20 @@
 
 A program egy útvonaltervező, melynek célja a tervezéshez használt algoritmusok és adatstruktúrák karakterisztikáinak ismertetése és látványos, kézzel fogható példával való szemléltetése.
 
+### Futtatás
+
+A projekt cmake build system-et használ. A legnagyobb depend
+
+```sh
+# cmake konfiguráció:
+cd build && cmake ..
+# build
+cmake --build ./build
+# futtatás:
+./build/NHF # ...args
+
+```
+
 ### Használat
 
 A program indításakor a paramétereket command line argument-ekként tudjuk megadni. A lehetséges paraméterek és leírásaik:
@@ -65,7 +79,7 @@ Használati útmutató kiírása.
 
 ---
 
-#####
+### A program működése
 
 **1. Parancssori argumentumok feldolgozása**
 

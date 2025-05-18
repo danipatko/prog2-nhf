@@ -40,7 +40,7 @@ build/*
 
 .cache/
 data/*.geojson*
-data/graf
+!data/bme.roads.geojsonl
 docs/*
 .skeleton
 
