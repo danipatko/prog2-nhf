@@ -4,7 +4,7 @@ A program egy útvonaltervező, melynek célja a tervezéshez használt algoritm
 
 ### Futtatás
 
-A projekt cmake build system-et használ. A legnagyobb depend
+A projekt cmake-et használ. A cmake FetchContent funkcióját használva le tudja tölteni és előállítani az OpenGL, GLM és GLFW3 függőségeket.
 
 ```sh
 # cmake konfiguráció:
@@ -70,8 +70,6 @@ A gráf élsúlyainak kiszámítására használt szorzók. A lényeg az, hogy m
 -   `e`: az út rangjával fordítottan arányos súly (legmagasabb rang: országút, legalacsonyabb: sima utak - a rank exponenciálisan nő).
 
 -   `f`: a fizetős utakra vonatkozó büntetőérték.
-
-##### `--route-rate <path/to/map.geojsonl>`
 
 ##### `--help`
 
