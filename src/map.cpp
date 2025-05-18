@@ -84,6 +84,8 @@ void Map::onStart() {
     line_shader.setUniform("view", view_mat);
 
     route.width(3.f);
+
+    onPointer(0, 0);
 }
 
 void Map::onFrame() {
