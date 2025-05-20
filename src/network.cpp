@@ -1,6 +1,7 @@
 #include "network.h"
 #include "cli.h"
 #include "diagnostics.h"
+#include "geo.h"
 #include "lib.h"
 
 #include <cstdlib>

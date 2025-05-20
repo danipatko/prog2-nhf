@@ -69,8 +69,25 @@ int main(int argc, char *argv[]) {
 
     // by default, choose two random points for source and target
     if (options.source == options.target) {
-        source = rand(0, graph.size());
-        target = rand(0, graph.size());
+
+        float dist = 0;
+        do {
+            source = rand(0, graph.size());
+            target = rand(0, graph.size());
+
+            const auto node_1 = graph.at(source), node_2 = graph.at(target);
+            const float dist = Point::haversine(node_1, node_2);
+
+            if (20000 > dist && dist > 10000 &&                                                                   //
+                std::abs(node_1.loc->y - node_2.loc->y) / std::abs(node_1.loc->x - node_2.loc->x) > 16.f / 9.f && //
+                (node_1.road->rating() + node_2.road->rating()) / 2 > 3) {
+                break;
+            }
+
+        } while (true);
+
+        std::cout << "-s " << *graph.at(source).loc << " -t " << *graph.at(target).loc << "\n";
+
     } else {
         source = closest(graph, options.source);
         target = closest(graph, options.target);

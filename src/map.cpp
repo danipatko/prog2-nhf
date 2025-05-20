@@ -41,7 +41,7 @@ void main() {
     if(vertexRating * view[0][0] < 10)
         discard;
 
-    FragColor = vec4(vertexColor, alpha * smoothstep(0, 100, vertexRating * view[0][0]));
+    FragColor = vec4(vertexColor, alpha * smoothstep(0, 40, vertexRating * view[0][0]));
     // FragColor = vec4(vertexColor, 1.0);
 }
 )";

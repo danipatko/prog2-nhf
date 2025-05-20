@@ -17,7 +17,7 @@ class Map : public Window {
     glm::mat4 view_mat;
     glm::mat4 proj_mat;
 
-    bool paused = false;
+    bool paused = true;
 
     void onStart() override;
     void onFrame() override;
@@ -56,7 +56,7 @@ class Map : public Window {
     Map();
 
     float road_alpha = 1.f;
-    float discovered_alpha = 1.f;
+    float discovered_alpha = 0.8f;
 
     /**
      * @brief Set alpha channel for the base map (useful for emphasizing the route)
