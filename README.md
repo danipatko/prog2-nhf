@@ -1,3 +1,7 @@
+# Prog2 NHF
+
+![Demo GIF](tokyo.demo.gif)
+
 ## Leírás
 
 A program egy útvonaltervező, melynek célja a tervezéshez használt algoritmusok és adatstruktúrák karakterisztikáinak ismertetése és látványos, kézzel fogható példával való szemléltetése.
